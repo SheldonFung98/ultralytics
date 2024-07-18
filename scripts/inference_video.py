@@ -6,9 +6,9 @@ from ultralytics import YOLO
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Inference video with YOLOv8 pose model.")
-    parser.add_argument("--model_path", type=str, required=True, help="Path to the YOLOv8 model.")
-    parser.add_argument("--video_path", type=str, required=True, help="Path to the video file.")
-    parser.add_argument("--output_path", type=str, default="output.avi", help="Path for the output video.")
+    parser.add_argument("-model_path", type=str, required=True, help="Path to the YOLOv8 model.")
+    parser.add_argument("-video_path", type=str, required=True, help="Path to the video file.")
+    parser.add_argument("-output_path", type=str, default="output.avi", help="Path for the output video.")
     return parser.parse_args()
 
 def load_model(model_path):
@@ -32,7 +32,8 @@ def process_video(model, video_path, output_path):
         if not ret:
             break
 
-        results = model(frame)
+        # results = model(frame)
+        results = model(frame, imgsz=(height, width))
         # results = model(frame, imgsz=(160, 256))
         # w, h = frame.shape[1], frame.shape[0]
         # print(w, h)
